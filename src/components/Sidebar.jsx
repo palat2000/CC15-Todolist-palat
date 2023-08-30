@@ -20,7 +20,10 @@ function Sidebar() {
         <Item icon={<FaCalendarAlt />} text="Next 7 Days" />
       </div>
       <div className="project">
-        <div onClick={handleClick} className="project__text">
+        <div
+          onClick={handleClick}
+          className={`project__text ${isShow && "show"}`}
+        >
           <div className="project__text-icon">
             <FaChevronDown />
           </div>
