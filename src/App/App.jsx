@@ -1,7 +1,7 @@
 import "./App.scss";
 import Header from "../components/Header";
-// import ListItem from "../components/ListItem";
-import List from "../components/List";
+import ListItem from "../components/ListItem";
+import Lists from "../components/Lists";
 import {
   FaInbox,
   FaCalendar,
@@ -26,7 +26,9 @@ function App() {
       <div className="todo__sidebar">
         <aside className="sidebar">
           <section className="sidebar__category">
-            <List data={generalList} />
+            <Lists isAccordion={true}>
+              <ListItem text="hello" icon={<FaCalendar />} active={true} />
+            </Lists>
           </section>
           <section className="sidebar__category">
             <div className="accordion">
@@ -37,7 +39,7 @@ function App() {
                   <p className="accordion__item__text">Projects</p>
                 </li>
               </div>
-              <List data={projectList} />
+              {/* <Lists data={projectList} /> */}
             </div>
           </section>
         </aside>
