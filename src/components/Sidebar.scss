@@ -1,0 +1,38 @@
+.sidebar__item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px 20px;
+}
+
+.project {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px 20px;
+}
+
+.project__text {
+  font-size: 1.6em;
+  display: flex;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: 600;
+
+  &-icon {
+    transition: transform 0.2s;
+    transform: rotate(-90deg);
+  }
+
+  &-text {
+    padding-left: 10px;
+  }
+}
+
+.project__text:hover {
+  font-weight: 700;
+  & > .project__text-icon {
+    transform: rotate(0deg);
+  }
+}
