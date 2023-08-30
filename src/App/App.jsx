@@ -1,5 +1,6 @@
 import "./App.scss";
 import Header from "../components/Header";
+import ListItem from "../components/ListItem";
 import {
   FaInbox,
   FaCalendar,
@@ -16,18 +17,9 @@ function App() {
         <aside className="sidebar">
           <section className="sidebar__category">
             <ul className="list">
-              <li className="list__item">
-                <FaInbox />
-                <p className="list__item__text">Inbox</p>
-              </li>
-              <li className="list__item">
-                <FaCalendar />
-                <p className="list__item__text">Today</p>
-              </li>
-              <li className="list__item">
-                <FaCalendarAlt />
-                <p className="list__item__text">Next 7 days</p>
-              </li>
+              <ListItem text="Inbox" icon={<FaInbox />} />
+              <ListItem text="Today" icon={<FaCalendar />} />
+              <ListItem text="Next 7 days" icon={<FaCalendarAlt />} />
             </ul>
           </section>
           <section className="sidebar__category">2</section>
