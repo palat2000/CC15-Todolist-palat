@@ -1,6 +1,7 @@
 import "./App.scss";
 import Header from "../components/Header";
-import ListItem from "../components/ListItem";
+// import ListItem from "../components/ListItem";
+import List from "../components/List";
 import {
   FaInbox,
   FaCalendar,
@@ -8,6 +9,15 @@ import {
   FaChevronDown,
 } from "react-icons/fa";
 function App() {
+  const generalList = [
+    { id: 1, text: "inbox", icon: <FaInbox />, active: true },
+    { id: 2, text: "Today", icon: <FaCalendar />, active: false },
+    { id: 3, text: "Next 7 days", icon: <FaCalendarAlt />, active: false },
+  ];
+  const projectList = [
+    { id: 4, text: "Project-A", icon: <FaInbox />, active: true },
+    { id: 5, text: "Project-B", icon: <FaInbox />, active: false },
+  ];
   return (
     <div className="todo">
       <div className="todo__header">
@@ -16,15 +26,7 @@ function App() {
       <div className="todo__sidebar">
         <aside className="sidebar">
           <section className="sidebar__category">
-            <ul className="list">
-              <ListItem text="Inbox" icon={<FaInbox />} active={true} />
-              <ListItem text="Today" icon={<FaCalendar />} active={false} />
-              <ListItem
-                text="Next 7 days"
-                icon={<FaCalendarAlt />}
-                active={false}
-              />
-            </ul>
+            <List data={generalList} />
           </section>
           <section className="sidebar__category">
             <div className="accordion">
@@ -35,11 +37,7 @@ function App() {
                   <p className="accordion__item__text">Projects</p>
                 </li>
               </div>
-              {/* Lists */}
-              <ul className="list">
-                <ListItem text="Project-1" icon={<FaInbox />} active={true} />
-                <ListItem text="Project-2" icon={<FaInbox />} active={false} />
-              </ul>
+              <List data={projectList} />
             </div>
           </section>
         </aside>
