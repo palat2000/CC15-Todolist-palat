@@ -33,11 +33,7 @@
   height: calc(100vh - $header-height);
 }
 
-.list {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-
+.accordion {
   &__item {
     display: flex;
     align-items: center;
@@ -45,14 +41,18 @@
     font-size: 2em;
     padding: 10px;
     border-radius: 4px;
-    cursor: pointer;
+    font-weight: 900;
 
-    &:hover {
-      background-color: $grey-light;
+    &__icon {
+      cursor: pointer;
     }
 
-    &__text {
-      font-weight: 500;
+    &__active {
+      transform: rotate(-450deg);
     }
+  }
+
+  &__text {
+    font-weight: inherit;
   }
 }
