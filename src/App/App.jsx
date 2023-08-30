@@ -2,6 +2,8 @@ import "./App.scss";
 import Header from "../components/Header";
 // import ListItem from "../components/ListItem";
 import List from "../components/List";
+import TodoHeader from "../components/Todo/TodoHeader";
+import TodoCreate from "../components/Todo/TodoCreate";
 import {
   FaInbox,
   FaCalendar,
@@ -42,7 +44,12 @@ function App() {
           </section>
         </aside>
       </div>
-      <div className="todo__content">TodoContent</div>
+      <div className="todo__content">
+        <main className="todo__container">
+          <TodoHeader />
+          <TodoCreate />
+        </main>
+      </div>
     </div>
   );
 }
