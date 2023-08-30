@@ -1,4 +1,3 @@
-import { FaInbox } from "react-icons/fa";
 import "./ListItem.scss";
 
 function ListItem({ text, icon }) {
