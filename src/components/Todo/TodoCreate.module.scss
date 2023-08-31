@@ -1,4 +1,4 @@
-@import '../../styles/global.scss';
+@import "../../styles/global.scss";
 
 .todo__create {
   display: flex;
@@ -12,6 +12,7 @@
     & .todo__create__button {
       background-color: $primary;
       color: $white;
+      transform: rotate(0);
     }
 
     & .todo__create__text {
@@ -28,6 +29,7 @@
     justify-content: center;
     align-items: center;
     font-size: $circle * 0.9;
+    transform: rotate(-360deg);
 
     // ทำให้ปุ่มอยู่กลาง
     // display: inline-block;
