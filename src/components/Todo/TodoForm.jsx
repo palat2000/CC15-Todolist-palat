@@ -19,8 +19,6 @@ function TodoForm({ textSubmit, openForm, todoTask, setTodoTask, isEdit }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (isEdit) {
-    } else {
       if (taskInput.trim() === "") setIsError(true);
       else {
         setIsError(false);
@@ -30,7 +28,6 @@ function TodoForm({ textSubmit, openForm, todoTask, setTodoTask, isEdit }) {
         setTodoTask([...todoTask, objTask]);
         openForm();
       }
-    }
   };
 
   return (
