@@ -1,26 +1,11 @@
 // Dependencies
-import { useState } from "react";
 import "./App.scss";
 import AppBar from "../components/Common/AppBar/AppBar";
 import SideBar from "../components/SideBar/SideBar";
-import TodoHeader from "../components/Todo/TodoHeader";
-import TodoCreate from "../components/Todo/TodoCreate";
-import TodoLists from "../components/Todo/TodoLists";
+import TodoContent from "../components/Todo/TodoContent";
 // import { Button } from "../components/Common/Button/Button";
 
 function App() {
-  // const [task, setTask] = useState("");
-  // const [todo, setTodo] = useState([]);
-
-  // const handleChange = (e) => {
-  //   setTask(e.target.value);
-  // };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   setTodo([...todo, task]);
-  // };
-
   return (
     <div className="todo">
       <div className="todo__header">
@@ -31,9 +16,7 @@ function App() {
       </div>
       <div className="todo__content">
         <main className="todo__container">
-          <TodoHeader />
-          <TodoCreate />
-          <TodoLists />
+          <TodoContent />
         </main>
       </div>
     </div>

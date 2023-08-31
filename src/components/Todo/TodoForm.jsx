@@ -2,9 +2,16 @@ import { useState } from "react";
 import { Button } from "../Common/Button/Button";
 import styles from "./TodoForm.module.scss";
 
-function TodoForm({ textSubmit, setIsOpen }) {
+function TodoForm({ textSubmit, openForm, todoTask, setTodoTask, isEdit }) {
   const [isError, setIsError] = useState(false);
   const [taskInput, setTaskInput] = useState("");
+  const date = new Date();
+  const [objTask, setObjTask] = useState({
+    ID: 1,
+    task: "",
+    status: false,
+    due_date: "AUG 31",
+  });
 
   const handleChange = (e) => {
     setTaskInput(e.target.value);
@@ -12,12 +19,18 @@ function TodoForm({ textSubmit, setIsOpen }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (taskInput.trim() === "") setIsError(true);
-    else {
-      setIsError(false);
-      setIsOpen();
+    if (isEdit) {
+    } else {
+      if (taskInput.trim() === "") setIsError(true);
+      else {
+        setIsError(false);
+        objTask.ID = todoTask.length + 1;
+        objTask.task = taskInput;
+        objTask.due_date = date;
+        setTodoTask([...todoTask, objTask]);
+        openForm();
+      }
     }
-    setTaskInput("");
   };
 
   return (
@@ -36,7 +49,7 @@ function TodoForm({ textSubmit, setIsOpen }) {
         <div className={styles.todo__form__buttons}>
           <Button
             type="button"
-            onClick={setIsOpen}
+            onClick={openForm}
             text="Cancel"
             active={false}
           />

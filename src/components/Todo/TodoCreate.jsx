@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-import { FaPlus } from "react-icons/fa";
 import { HiPlus } from "react-icons/hi";
 
 import TodoForm from "./TodoForm";
@@ -12,19 +11,23 @@ Condition Rendering
 - Active : Show TodoForm
 */
 
-function TodoCreate() {
+function TodoCreate({ todoTask, setTodoTask }) {
   const [isOpenForm, setIsOpenForm] = useState(false);
 
-  const handleClick = (e) => {
+  const openForm = () => {
     setIsOpenForm(!isOpenForm);
   };
-
   return (
     <>
       {isOpenForm ? (
-        <TodoForm textSubmit="Add Task" setIsOpen={handleClick} />
+        <TodoForm
+          textSubmit="Add Task"
+          openForm={openForm}
+          todoTask={todoTask}
+          setTodoTask={setTodoTask}
+        />
       ) : (
-        <div onClick={handleClick} className={styles.todo__create}>
+        <div onClick={openForm} className={styles.todo__create}>
           <div className={styles.todo__create__button}>
             <HiPlus />
           </div>
