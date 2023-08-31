@@ -2,16 +2,27 @@ import { useState } from "react";
 import { Button } from "../Common/Button/Button";
 import styles from "./TodoForm.module.scss";
 
-function TodoForm({ textSubmit, openForm, todoTask, setTodoTask, isEdit }) {
+function TodoForm({ textSubmit, openForm, todoTask, setTodoTask, editTaskId = null, setEditTaskId }) {
   const [isError, setIsError] = useState(false);
   const [taskInput, setTaskInput] = useState("");
   const date = new Date();
-  const [objTask, setObjTask] = useState({
-    ID: 1,
+  const objTask = {
+    id: 1,
     task: "",
     status: false,
     due_date: "AUG 31",
-  });
+  };
+
+  console.log(setTodoTask)
+
+const handleSaveClick = (e) => {
+  e.preventDefault();
+    setTodoTask(todoTask.map((task) =>
+      task.id === editTaskId ? { ...task, task: taskInput } : task
+    ));
+    openForm()
+    setEditTaskId(null);
+  };
 
   const handleChange = (e) => {
     setTaskInput(e.target.value);
@@ -19,22 +30,20 @@ function TodoForm({ textSubmit, openForm, todoTask, setTodoTask, isEdit }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (isEdit) {
-    } else {
-      if (taskInput.trim() === "") setIsError(true);
-      else {
+      if (taskInput.trim() === "") {
+        setIsError(true)
+      } else {
         setIsError(false);
-        objTask.ID = todoTask.length + 1;
+        if(todoTask.length) objTask.id = todoTask[todoTask.length - 1].id + 1;
         objTask.task = taskInput;
         objTask.due_date = date;
         setTodoTask([...todoTask, objTask]);
         openForm();
-      }
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className={styles.todo__form__container}>
+    <form onSubmit={editTaskId ? handleSaveClick : handleSubmit} className={styles.todo__form__container}>
       {/*	Body */}
       <input
         value={taskInput}

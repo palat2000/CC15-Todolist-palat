@@ -24,7 +24,8 @@ function TodoLists({ todoTask, setTodoTask }) {
       due_date: "2023-04-30",
     },
   ];
-  const [allTodo, setAllTodo] = useState([...data]);
+
+  // const [allTodo, setAllTodo] = useState([...data]);
   return (
     <ul className={styles.todo__lists}>
       {todoTask.map((obj) => (
@@ -33,6 +34,8 @@ function TodoLists({ todoTask, setTodoTask }) {
           due_date={obj.due_date}
           status={obj.status}
           id={obj.id}
+          todoTask={todoTask}
+          setTodoTask={setTodoTask}
           key={obj.id}
         />
       ))}

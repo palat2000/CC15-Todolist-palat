@@ -4,20 +4,24 @@ import { HiOutlineCheck } from "react-icons/hi";
 import TodoForm from "./TodoForm";
 import styles from "./TodoItem.module.scss";
 
-function TodoItem({ task, status, due_date, id }) {
+function TodoItem({ task, status, due_date, id, todoTask, setTodoTask }) {
   const [isOpenForm, setIsOpenForm] = useState(false);
+  const [editTaskId, setEditTaskId] = useState(null);
   const newDate = new Date(due_date);
-
+  
   const openForm = () => {
     setIsOpenForm(!isOpenForm);
+    setEditTaskId(id);
   };
 
   return isOpenForm ? (
     <TodoForm
       textSubmit="Edit Task"
       openForm={openForm}
-      isEdit={true}
-      id={id}
+      editTaskId={editTaskId}
+      setEditTaskId={setEditTaskId}
+      todoTask={todoTask}
+      setTodoTask={setTodoTask}
     />
   ) : (
     <li className={styles.todo}>
