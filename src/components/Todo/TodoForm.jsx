@@ -2,9 +2,9 @@ import { useState } from "react";
 import { Button } from "../Common/Button/Button";
 import styles from "./TodoForm.module.scss";
 
-function TodoForm({ textSubmit, openForm, addTodo }) {
+function TodoForm({ textSubmit, openForm, addTodo, editTodo, oldTodo }) {
   const [isError, setIsError] = useState(false);
-  const [taskInput, setTaskInput] = useState("");
+  const [taskInput, setTaskInput] = useState(oldTodo?.task || "");
 
   const handleChange = (e) => {
     setTaskInput(e.target.value);
@@ -15,10 +15,12 @@ function TodoForm({ textSubmit, openForm, addTodo }) {
     if (taskInput.trim() === "") {
       setIsError(true);
       return;
-    } else {
-      addTodo(taskInput);
-      openForm();
     }
+    if (addTodo) addTodo(taskInput);
+    else if (editTodo) {
+      editTodo(oldTodo.id, { task: taskInput });
+    }
+    openForm();
   };
 
   return (

@@ -12,12 +12,17 @@ function TodoItem({ task, status, due_date, id, deleteTodo, editTodo }) {
   };
 
   const toggleStatus = () => {
-    const newTodoObj = { id, task, due_date, status: !status };
-    editTodo(id, newTodoObj);
+    const newTaskObj = { status: !status };
+    editTodo(id, newTaskObj);
   };
 
   return isOpenForm ? (
-    <TodoForm textSubmit="Edit Task" openForm={openForm} />
+    <TodoForm
+      textSubmit="Edit Task"
+      openForm={openForm}
+      editTodo={editTodo}
+      oldTodo={{ task, status, due_date, id }}
+    />
   ) : (
     <li className={styles.todo}>
       <div

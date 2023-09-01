@@ -12,19 +12,19 @@ function TodoContent() {
       id: nanoid(),
       task: "Suspendisse potenti.",
       status: false,
-      due_date: "2023-04-26",
+      due_date: dayjs("2023-04-26").format("MMM-DD"),
     },
     {
       id: nanoid(),
       task: "In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.",
       status: false,
-      due_date: "2023-05-08",
+      due_date: dayjs("2023-05-08").format("MMM-DD"),
     },
     {
       id: nanoid(),
       task: "Aenean fermentum. Donec ut mauris eget massa tempor convallis.",
       status: false,
-      due_date: "2023-04-30",
+      due_date: dayjs("2023-04-30").format("MMM-DD"),
     },
   ];
   const [todoTask, setTodoTask] = useState(data);
@@ -52,26 +52,26 @@ function TodoContent() {
     setTodoTask((prev) => prev.filter((task) => task.id !== id));
   };
 
-  const editTodo = (id, newTodoObj) => {
+  const editTodo = (id, newTaskObj) => {
     // let foundedTodo = todoTask.find((task) => task.id === id);
     // if (!foundedTodo) return;
     // const newTodoList = [...todoTask];
     // let foundedIndex = newTodoList.findIndex((task) => task.id === id);
-    // newTodoList.splice(foundedIndex, 1, newTodoObj);
+    // newTodoList.splice(foundedIndex, 1, newTaskObj);
     // setTodoTask(newTodoList);
 
     // const newTodoList = todoTask.map((task) => {
     //   if (task.id !== id) {
     //     return task;
     //   } else {
-    //     return { ...task, ...newTodoObj };
+    //     return { ...task, ...newTaskObj };
     //   }
     // });
     // setTodoTask(newTodoList);
 
     const newTodoList = todoTask.reduce((acc, task) => {
       if (task.id !== id) acc.push(task);
-      else acc.push({ ...task, ...newTodoObj });
+      else acc.push({ ...task, ...newTaskObj });
       return acc;
     }, []);
     setTodoTask(newTodoList);
