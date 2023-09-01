@@ -9,19 +9,19 @@ import TodoLists from "./TodoLists";
 function TodoContent() {
   const data = [
     {
-      id: 1,
+      id: nanoid(),
       task: "Suspendisse potenti.",
       status: false,
       due_date: "2023-04-26",
     },
     {
-      id: 2,
+      id: nanoid(),
       task: "In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.",
       status: false,
       due_date: "2023-05-08",
     },
     {
-      id: 3,
+      id: nanoid(),
       task: "Aenean fermentum. Donec ut mauris eget massa tempor convallis.",
       status: false,
       due_date: "2023-04-30",
@@ -39,11 +39,53 @@ function TodoContent() {
     setTodoTask((pev) => [newTodo, ...pev]);
   };
 
+  const deleteTodo = (id) => {
+    // const rmTodo = [...todoTask];
+    // rmTodo.splice(
+    //   rmTodo.findIndex((task) => task.id === id),
+    //   1
+    // );
+    // setTodoTask(rmTodo);
+
+    // setTodoTask(todoTask.filter((task) => task.id !== id));
+
+    setTodoTask((prev) => prev.filter((task) => task.id !== id));
+  };
+
+  const editTodo = (id, newTodoObj) => {
+    // let foundedTodo = todoTask.find((task) => task.id === id);
+    // if (!foundedTodo) return;
+    // const newTodoList = [...todoTask];
+    // let foundedIndex = newTodoList.findIndex((task) => task.id === id);
+    // newTodoList.splice(foundedIndex, 1, newTodoObj);
+    // setTodoTask(newTodoList);
+
+    // const newTodoList = todoTask.map((task) => {
+    //   if (task.id !== id) {
+    //     return task;
+    //   } else {
+    //     return { ...task, ...newTodoObj };
+    //   }
+    // });
+    // setTodoTask(newTodoList);
+
+    const newTodoList = todoTask.reduce((acc, task) => {
+      if (task.id !== id) acc.push(task);
+      else acc.push({ ...task, ...newTodoObj });
+      return acc;
+    }, []);
+    setTodoTask(newTodoList);
+  };
+
   return (
     <main className="todo__container">
       <TodoHeader />
       <TodoCreate setTodoTask={setTodoTask} addTodo={addTodo} />
-      <TodoLists todoTask={todoTask} />
+      <TodoLists
+        todoTask={todoTask}
+        deleteTodo={deleteTodo}
+        editTodo={editTodo}
+      />
     </main>
   );
 }

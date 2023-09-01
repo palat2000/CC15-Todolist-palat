@@ -16,7 +16,6 @@ function TodoForm({ textSubmit, openForm, addTodo }) {
       setIsError(true);
       return;
     } else {
-      setIsError(false);
       addTodo(taskInput);
       openForm();
     }

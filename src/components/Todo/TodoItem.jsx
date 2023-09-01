@@ -4,11 +4,16 @@ import { HiOutlineCheck } from "react-icons/hi";
 import TodoForm from "./TodoForm";
 import styles from "./TodoItem.module.scss";
 
-function TodoItem({ task, status, due_date, id }) {
+function TodoItem({ task, status, due_date, id, deleteTodo, editTodo }) {
   const [isOpenForm, setIsOpenForm] = useState(false);
 
   const openForm = () => {
     setIsOpenForm(!isOpenForm);
+  };
+
+  const toggleStatus = () => {
+    const newTodoObj = { id, task, due_date, status: !status };
+    editTodo(id, newTodoObj);
   };
 
   return isOpenForm ? (
@@ -16,11 +21,20 @@ function TodoItem({ task, status, due_date, id }) {
   ) : (
     <li className={styles.todo}>
       <div
-        className={status ? styles.todo__checkbox__done : styles.todo__checkbox}
+        className={`${styles.todo__checkbox} ${
+          status ? styles.todo__checkbox__done : ""
+        }`}
       >
-        <HiOutlineCheck className={styles.todo__checkbox__icon} />
+        <HiOutlineCheck
+          onClick={toggleStatus}
+          className={styles.todo__checkbox__icon}
+        />
       </div>
-      <p className={status ? styles.todo__task__done : styles.todo__task}>
+      <p
+        className={`${styles.todo__task} ${
+          status ? styles.todo__task__done : ""
+        }`}
+      >
         {task}
       </p>
       <span className={styles.todo__date}>{due_date}</span>
@@ -28,7 +42,7 @@ function TodoItem({ task, status, due_date, id }) {
         <span onClick={openForm}>
           <FaPen className={styles.todo__edit} />
         </span>
-        <span>
+        <span onClick={() => deleteTodo(id)}>
           <FaTrashAlt className={styles.todo__delete} />
         </span>
       </div>
