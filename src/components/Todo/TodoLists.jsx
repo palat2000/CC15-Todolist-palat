@@ -3,10 +3,10 @@ import styles from "./TodoLists.module.scss";
 import useTodo from "../../hooks/useTodo";
 
 function TodoLists() {
-  const { todoTask } = useTodo();
+  const { showTodos } = useTodo();
   return (
     <ul className={styles.todo__lists}>
-      {todoTask.map((obj) => (
+      {showTodos.map((obj) => (
         <TodoItem
           task={obj.task}
           due_date={obj.due_date}
