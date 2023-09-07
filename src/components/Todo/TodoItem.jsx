@@ -4,7 +4,7 @@ import { HiOutlineCheck } from "react-icons/hi";
 import TodoForm from "./TodoForm";
 import styles from "./TodoItem.module.scss";
 
-function TodoItem({ task, status, date, id, deleteTodo, editTodo }) {
+function TodoItem({ task, status, due_date, id, deleteTodo, editTodo }) {
   const [isOpenForm, setIsOpenForm] = useState(false);
 
   const openForm = () => {
@@ -21,7 +21,7 @@ function TodoItem({ task, status, date, id, deleteTodo, editTodo }) {
       textSubmit="Edit Task"
       openForm={openForm}
       editTodo={editTodo}
-      oldTodo={{ task, status, date, id }}
+      oldTodo={{ task, status, due_date, id }}
     />
   ) : (
     <li className={styles.todo}>
@@ -42,7 +42,7 @@ function TodoItem({ task, status, date, id, deleteTodo, editTodo }) {
       >
         {task}
       </p>
-      <span className={styles.todo__date}>{date}</span>
+      <span className={styles.todo__date}>{due_date}</span>
       <div className={styles.todo__action}>
         <span onClick={openForm}>
           <FaPen className={styles.todo__edit} />

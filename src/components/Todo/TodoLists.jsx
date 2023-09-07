@@ -7,7 +7,7 @@ function TodoLists({ todoTask, deleteTodo, editTodo }) {
       {todoTask.map((obj) => (
         <TodoItem
           task={obj.task}
-          date={obj.date}
+          due_date={obj.due_date}
           status={obj.status}
           id={obj.id}
           key={obj.id}

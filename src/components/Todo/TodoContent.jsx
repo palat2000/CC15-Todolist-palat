@@ -18,7 +18,12 @@ function TodoContent() {
           method: "GET",
         });
         const data = await res.json();
-        setTodoTask([...data.todos]);
+        const newTodoTaskList = data.todos.map((task) => {
+          const newTask = { ...task, due_date: task.date };
+          delete newTask.date;
+          return newTask;
+        });
+        setTodoTask([...newTodoTaskList]);
       } catch (err) {
         console.log(err);
       }
@@ -31,7 +36,7 @@ function TodoContent() {
       id: nanoid(),
       task: task,
       status: false,
-      date: dayjs().format("MMM-DD"),
+      due_date: dayjs().format("MMM-DD"),
     };
     try {
       const options = {
@@ -41,7 +46,8 @@ function TodoContent() {
       };
       let res = await fetch(END_POINT, options);
       let data = await res.json();
-      setTodoTask((pev) => [data.todo, ...pev]);
+      const newData = { ...data.todo, due_date: data.todo.date };
+      setTodoTask((pev) => [newData, ...pev]);
     } catch (err) {
       console.log(err);
     }
@@ -66,7 +72,7 @@ function TodoContent() {
     }
   };
 
-  const editTodo = (id, newTaskObj) => {
+  const editTodo = async (id, newTaskObj) => {
     // let foundedTodo = todoTask.find((task) => task.id === id);
     // if (!foundedTodo) return;
     // const newTodoList = [...todoTask];
@@ -83,12 +89,36 @@ function TodoContent() {
     // });
     // setTodoTask(newTodoList);
 
-    const newTodoList = todoTask.reduce((acc, task) => {
-      if (task.id !== id) acc.push(task);
-      else acc.push({ ...task, ...newTaskObj });
-      return acc;
-    }, []);
-    setTodoTask(newTodoList);
+    // const newTodoList = todoTask.reduce((acc, task) => {
+    //   if (task.id !== id) acc.push(task);
+    //   else acc.push({ ...task, ...newTaskObj });
+    //   return acc;
+    // }, []);
+    // setTodoTask(newTodoList);
+
+    try {
+      let index = todoTask.findIndex((task) => task.id === id);
+      if (index !== -1) {
+        const updatedTodo = { ...todoTask[index], ...newTaskObj };
+        updatedTodo.date = todoTask[index].due_date;
+        console.log(todoTask[index]);
+        const options = {
+          method: "PUT",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(updatedTodo),
+        };
+        let res = await fetch(`${END_POINT}/${id}`, options);
+        let data = await res.json();
+        // console.log(data.todo);
+        const newTodoTask = [...todoTask];
+        newTodoTask[index] = data.todo;
+        setTodoTask(newTodoTask);
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
