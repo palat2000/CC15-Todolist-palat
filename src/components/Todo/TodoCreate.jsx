@@ -11,7 +11,7 @@ Condition Rendering
 - Active : Show TodoForm
 */
 
-function TodoCreate({ setTodoTask, addTodo }) {
+function TodoCreate() {
   const [isOpenForm, setIsOpenForm] = useState(false);
 
   const openForm = () => {
@@ -20,12 +20,7 @@ function TodoCreate({ setTodoTask, addTodo }) {
   return (
     <>
       {isOpenForm ? (
-        <TodoForm
-          textSubmit="Add Task"
-          openForm={openForm}
-          setTodoTask={setTodoTask}
-          addTodo={addTodo}
-        />
+        <TodoForm textSubmit="Add Task" openForm={openForm} />
       ) : (
         <div onClick={openForm} className={styles.todo__create}>
           <div className={styles.todo__create__button}>

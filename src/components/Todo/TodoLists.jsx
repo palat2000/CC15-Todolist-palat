@@ -1,7 +1,11 @@
+import { useContext } from "react";
+
 import TodoItem from "./TodoItem";
 import styles from "./TodoLists.module.scss";
+import { TodoContext } from "../../context/TodoContext";
 
-function TodoLists({ todoTask, deleteTodo, editTodo }) {
+function TodoLists() {
+  const { todoTask } = useContext(TodoContext);
   return (
     <ul className={styles.todo__lists}>
       {todoTask.map((obj) => (
@@ -11,8 +15,6 @@ function TodoLists({ todoTask, deleteTodo, editTodo }) {
           status={obj.status}
           id={obj.id}
           key={obj.id}
-          deleteTodo={deleteTodo}
-          editTodo={editTodo}
         />
       ))}
     </ul>

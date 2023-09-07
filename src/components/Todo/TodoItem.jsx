@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { FaTrashAlt, FaPen } from "react-icons/fa";
 import { HiOutlineCheck } from "react-icons/hi";
 import TodoForm from "./TodoForm";
 import styles from "./TodoItem.module.scss";
+import { TodoContext } from "../../context/TodoContext";
 
-function TodoItem({ task, status, due_date, id, deleteTodo, editTodo }) {
+function TodoItem({ task, status, due_date, id }) {
   const [isOpenForm, setIsOpenForm] = useState(false);
+  const { deleteTodo, editTodo } = useContext(TodoContext);
 
   const openForm = () => {
     setIsOpenForm(!isOpenForm);
@@ -20,7 +22,6 @@ function TodoItem({ task, status, due_date, id, deleteTodo, editTodo }) {
     <TodoForm
       textSubmit="Edit Task"
       openForm={openForm}
-      editTodo={editTodo}
       oldTodo={{ task, status, due_date, id }}
     />
   ) : (
