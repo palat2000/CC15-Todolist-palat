@@ -1,14 +1,12 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { Button } from "../Common/Button/Button";
 import styles from "./TodoForm.module.scss";
-import { TodoContext } from "../../context/TodoContext";
-// import useTodo from "../../hooks/useTodo";
+import useTodo from "../../hooks/useTodo";
 
 function TodoForm({ textSubmit, openForm, oldTodo }) {
   const [isError, setIsError] = useState(false);
   const [taskInput, setTaskInput] = useState(oldTodo?.task || "");
-  const { editTodo, addTodo } = useContext(TodoContext);
-  // const { addTodo, editTodo } = useTodo();
+  const { editTodo, addTodo } = useTodo();
 
   const handleChange = (e) => {
     setTaskInput(e.target.value);

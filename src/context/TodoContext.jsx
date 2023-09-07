@@ -63,13 +63,11 @@ function TodoContextProvider(props) {
   };
 
   const editTodo = async (id, newTaskObj) => {
-    console.log(newTaskObj);
     try {
       let index = todoTask.findIndex((task) => task.id === id);
       if (index !== -1) {
         const updatedTodo = { ...todoTask[index], ...newTaskObj };
         updatedTodo.date = todoTask[index].due_date;
-        console.log(todoTask[index]);
         const options = {
           method: "PUT",
           headers: {
