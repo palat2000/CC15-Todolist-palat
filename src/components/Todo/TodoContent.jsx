@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { nanoid } from "nanoid";
 import dayjs from "dayjs";
 
@@ -6,40 +6,48 @@ import TodoHeader from "./TodoHeader";
 import TodoCreate from "./TodoCreate";
 import TodoLists from "./TodoLists";
 
-function TodoContent() {
-  const data = [
-    {
-      id: nanoid(),
-      task: "Suspendisse potenti.",
-      status: false,
-      due_date: dayjs("2023-04-26").format("MMM-DD"),
-    },
-    {
-      id: nanoid(),
-      task: "In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.",
-      status: false,
-      due_date: dayjs("2023-05-08").format("MMM-DD"),
-    },
-    {
-      id: nanoid(),
-      task: "Aenean fermentum. Donec ut mauris eget massa tempor convallis.",
-      status: false,
-      due_date: dayjs("2023-04-30").format("MMM-DD"),
-    },
-  ];
-  const [todoTask, setTodoTask] = useState(data);
+const END_POINT = "http://localhost:8080/api/todos";
 
-  const addTodo = (task) => {
+function TodoContent() {
+  const [todoTask, setTodoTask] = useState([]);
+
+  useEffect(() => {
+    async function fetchAllTodos() {
+      try {
+        const res = await fetch("http://localhost:8080/api/todos", {
+          method: "GET",
+        });
+        const data = await res.json();
+        setTodoTask([...data.todos]);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    fetchAllTodos();
+  }, []);
+
+  const addTodo = async (task) => {
     const newTodo = {
       id: nanoid(),
       task: task,
       status: false,
-      due_date: dayjs().format("MMM-DD"),
+      date: dayjs().format("MMM-DD"),
     };
-    setTodoTask((pev) => [newTodo, ...pev]);
+    try {
+      const options = {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(newTodo),
+      };
+      let res = await fetch(END_POINT, options);
+      let data = await res.json();
+      setTodoTask((pev) => [data.todo, ...pev]);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  const deleteTodo = (id) => {
+  const deleteTodo = async (id) => {
     // const rmTodo = [...todoTask];
     // rmTodo.splice(
     //   rmTodo.findIndex((task) => task.id === id),
@@ -49,7 +57,13 @@ function TodoContent() {
 
     // setTodoTask(todoTask.filter((task) => task.id !== id));
 
-    setTodoTask((prev) => prev.filter((task) => task.id !== id));
+    try {
+      const options = { method: "DELETE" };
+      let res = await fetch(`${END_POINT}/${id}`, options);
+      setTodoTask((prev) => prev.filter((task) => task.id !== id));
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const editTodo = (id, newTaskObj) => {
