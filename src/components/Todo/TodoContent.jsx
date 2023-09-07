@@ -5,29 +5,15 @@ import dayjs from "dayjs";
 import TodoHeader from "./TodoHeader";
 import TodoCreate from "./TodoCreate";
 import TodoLists from "./TodoLists";
+import useTodo from "../../hooks/useTodo";
 
 const END_POINT = "http://localhost:8080/api/todos";
 
 function TodoContent() {
-  const [todoTask, setTodoTask] = useState([]);
+  // const [todoTask, setTodoTask] = useState([]);
+  const { fetchAllTodos, todoTask, setTodoTask } = useTodo();
 
   useEffect(() => {
-    async function fetchAllTodos() {
-      try {
-        const res = await fetch("http://localhost:8080/api/todos", {
-          method: "GET",
-        });
-        const data = await res.json();
-        const newTodoTaskList = data.todos.map((task) => {
-          const newTask = { ...task, due_date: task.date };
-          delete newTask.date;
-          return newTask;
-        });
-        setTodoTask([...newTodoTaskList]);
-      } catch (err) {
-        console.log(err);
-      }
-    }
     fetchAllTodos();
   }, []);
 
